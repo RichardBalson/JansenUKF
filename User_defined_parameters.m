@@ -19,7 +19,7 @@ end
 
 fs =2048; % Specify sampling frequency
 
-Simulation_number = 1; % Specify number of simulations to estimate
+Simulation_number = 5; % Specify number of simulations to estimate
 
 if Simulation_number>1
     Decimate = 500; % Specify the distance between corresponding samples for the output matrix when multiple simulation are performed
@@ -43,7 +43,7 @@ simulate =1; % Decide whether to simulate model output or use previous results i
 NoiseIn = 1e-2;% Base 1e-2 Specify noise to add to simulated signal
 SimulationSettings.name = 'Jansen_output'; % Specify name of file to save Wendling model output data to, or to load data from when simulation is not performed
 if simulate % Specify parameters for simulation purposes
-    SimulationSettings.simulation_time =6; %Time for simulation in seconds 
+    SimulationSettings.simulation_time =20; %Time for simulation in seconds 
     SimulationSettings.slope_time =1; % Specifies the time over which the model gain should be altered
     SimulationSettings.number_of_sigma_input = 1; % Used to determine standard deviation of input if  1: 68.27% of realisations within physiolgical range, 2: 95.45, 3: 99.73 4: 99.994
     SimulationSettings.stochastic = 1; % Used to specifiy the stochastic adjustment on the input 1 is no adjustment. <1 downscalling, >1 upscaling
@@ -75,7 +75,7 @@ end
 
 Estimation_Type = ['GJF',int2str(filter_simulation),'_PS',int2str(SimulationSettings.slope_time)];
 
-MeanCheckTStart = 15; % For multiple simulations determine where to start checking the estimation values
+MeanCheckTStart = 5; % For multiple simulations determine where to start checking the estimation values
 
 EstStart = 5; % Specify the duration after simulation start when estimation should start. This allows removal of all transients.
 
@@ -84,7 +84,7 @@ EstStart = 5; % Specify the duration after simulation start when estimation shou
 
 Ds = 6; % Number of differential equations describing model, also the number of fast states to be estiamted
 
-Dp = 0; % Number of parameters to be estimated, also refered to as slow states
+Dp = 1; % Number of parameters to be estimated, also refered to as slow states
 
 Dk =0; %If set to 1 the mean of the stochastic input will be estimated % Note that if Input_mean_variation is not zero than Dk should be set to one to allow tracking of the input mean
 
@@ -112,7 +112,8 @@ kappa =0.5; % Varibale used to define the relative contribution of the mean on t
 
 Variable_state_uncertainty = 0;%1e-3; % 1e-3 Uncertianty due to stochastic input
 
-Base_parameter_uncertainty = 1e-6;%1e-3;%1e-2; % Inherent parameter uncertainty due to model error
+Exc_parameter_uncertainty = 5e-2;
+Base_parameter_uncertainty = 5e-2;%1e-3;%1e-2; % Inherent parameter uncertainty due to model error
 
 Variable_parameter_uncertainty = 0;%1e-3;  % Uncertianty due parameters varying in time
 
