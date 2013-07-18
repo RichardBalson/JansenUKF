@@ -26,7 +26,7 @@ err = zeros(Dx,1); % Initlaise mean square error
 Nerr = zeros(Dp+Dk,1); % Initialise normalised error for initial sum
 
 IndexErr=  MeanCheckTStart*sampling_frequency+1:limit;
-IndexErrD = (MeanCheckTStart+EstStart)*sampling_frequency+1:length(output6);
+IndexErrD = (MeanCheckTStart+EstStart)*sampling_frequency:length(output6);
 
 err(1:Ds) = diag(Sample_inverse*(z(IndexErrD,:)' - X(1:Ds,IndexErr))*(z(IndexErrD,:)' - X(1:Ds,IndexErr))');
 
@@ -51,7 +51,7 @@ if (Dp)>0
     New = MVI;
     New(New==0) = eps;
     Nerr(1:Dp) = Sample_inverse*diag((MVI(IndexErrD,1:Dp)' - X(Ds+Dk+1:Ds+Dk+Dp,IndexErr))./New(IndexErrD,1:Dp)'*(MVI(IndexErrD,1:Dp)' - X(Ds+Dk+1:Ds+Dk+Dp,IndexErr))');
-        PercErrEstimate = abs(X(Ds+Dk+1:Ds+Dk+Dp,1:end-1)-MVI(EstStart*sampling_frequency+1:end,1:Dp)')./MVI(EstStart*sampling_frequency+1:end,1:Dp)'*100;
+        PercErrEstimate = abs(X(Ds+Dk+1:Ds+Dk+Dp,1:end-1)-MVI(EstStart*sampling_frequency:end,1:Dp)')./MVI(EstStart*sampling_frequency:end,1:Dp)'*100;
 end
 
 if Dk >0
