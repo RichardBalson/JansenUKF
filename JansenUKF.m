@@ -38,7 +38,7 @@ tic
 
 addpath(genpath('../Jansen')); % Specify files required for estimation
 
-system_dependent('setprecision',24); % Set the precision of accuracy in order to reduce the effect of rounding errors.
+system_dependent('setprecision',64); % Set the precision of accuracy in order to reduce the effect of rounding errors.
 
 User_defined_parameters;
 
@@ -49,19 +49,33 @@ q=0; % Intialise simulation number loop
 % Dynamic variables
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+if filter_simulation
+        band_coeff = filtercoeff(lowcutoff,highcutoff,fs);
+end
+
 % Estimation Procedure Parameters
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Dx = Ds+Dp+Dk; % Number of dimensions of augmented state matrix, Note that estimated parameters and inputs are now considered to be 'slow states' in the estimation procedure
 
-if Random_number_generator(1)
+    % Physiological range of Model gains
+    % ~~~~~~~~~~~~~~~~~
+    
+    Max_A =10;
+    Min_A =0;
+    Max_B =40;
+    Min_B =0;
+    
+    Max = [Max_A, Max_B];
+    Min = [Min_A, Min_B];
+
+for q = 1:Simulation_number
+    
+    if Random_number_generator(1)
     rng(0);
 else
     rng(cputime);
-end
-
-while (q<Simulation_number)
-    q=q+1;
+    end
     if simulate
         SimulationSettings.fs = fs;
         Jansen_Simulation(SimulationSettings); % Simulate states and output of the extended neural mass model
@@ -84,20 +98,8 @@ while (q<Simulation_number)
     % Simulated signal data mV
     % ~~~~~~~~~~~~~~~~
     if filter_simulation
-        band_coeff = filtercoeff(lowcutoff,highcutoff,fs);
         output6 = filtfilt1(band_coeff,1,output6);
     end
-    
-    % Physiological range of Model gains
-    % ~~~~~~~~~~~~~~~~~
-    
-    Max_A =10;
-    Min_A =0;
-    Max_B =40;
-    Min_B =0;
-    
-    Max = [Max_A, Max_B];
-    Min = [Min_A, Min_B];
     
     % Static Variables
     % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,7 +140,7 @@ while (q<Simulation_number)
                 %                     end
                 Input_var = Sigma(Ds+1,:,p);
             else
-                Input_var = ones(1,size(Sigma,2))*Input_mean;
+                Input_var = Input_mean;
             end
             [Xout(:,:,p) Yout(:,:,p)] = JNM(Sigma(:,:,p),dt,Input_var, gain, tcon,C);
             [ExpX(:,p) ExpY(:,p) Pxxn Pxyn Pyyn] = Expectation(Xout(:,:,p), Dx, Yout(:,:,p), 1,kappa);

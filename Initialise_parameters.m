@@ -27,7 +27,7 @@ if (Parameter_initialisation ==0)
     end
     mu_A = (Max_A+Min_A)/2;
     mu_B = (Max_B+Min_B)/2;
-    mu_Input = (frequency_limits(1)+frequency_limits(1))/2;
+    mu_Input = (frequency_limits(2)+frequency_limits(1))/2;
     
     % Determine one standard deviation for all parameters
     

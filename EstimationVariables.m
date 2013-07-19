@@ -97,7 +97,7 @@ State_uncertainty = ones(1,Ds).*Base_state_uncertainty; % Specify base
 % ~~~~~~~~~~~~~~~~~~~~~~~
 
 if Dp >0
-    Parameter_uncertainty(1,1) = Base_parameter_uncertainty + Variable_parameter_uncertainty*Parameter_varying; % Variance to allow for model error and stochastic input effect
+    Parameter_uncertainty(1,1) = Exc_parameter_uncertainty + Variable_parameter_uncertainty*Parameter_varying; % Variance to allow for model error and stochastic input effect
     if Dp >1
         Parameter_uncertainty(1,2) = (Base_parameter_uncertainty + Variable_parameter_uncertainty*Parameter_varying);
     end
@@ -139,7 +139,7 @@ Sigma = zeros(Dx,Sigma_points,Number_of_observations);% Intialise the sigma poin
 
 State_covariance_matrix = eye(Ds).*State_sigma.^2; % State covariance matrix
 
-State_uncertainty_matrix = eye(Ds).*State_uncertaintyF.^2.*uncertainty_adjustment;
+State_uncertainty_matrix = eye(Ds).*State_uncertaintyF.^1.75.*uncertainty_adjustment;
 
 Parameter_uncertainty_matrix = eye(Dp).*Parameter_uncertaintyF.^2.*uncertainty_adjustment;
 
