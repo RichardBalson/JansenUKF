@@ -43,11 +43,11 @@ simulate =1; % Decide whether to simulate model output or use previous results i
 NoiseIn = 1e-3;% Base 1e-2 Specify noise to add to simulated signal
 SimulationSettings.name = 'Jansen_output'; % Specify name of file to save Wendling model output data to, or to load data from when simulation is not performed
 if simulate % Specify parameters for simulation purposes
-    SimulationSettings.simulation_time =80; %Time for simulation in seconds 
+    SimulationSettings.simulation_time =50; %Time for simulation in seconds 
     SimulationSettings.slope_time =1; % Specifies the time over which the model gain should be altered
     SimulationSettings.number_of_sigma_input = 1; % Used to determine standard deviation of input if  1: 68.27% of realisations within physiolgical range, 2: 95.45, 3: 99.73 4: 99.994
     SimulationSettings.stochastic = 1; % Used to specifiy the stochastic adjustment on the input 1 is no adjustment. <1 downscalling, >1 upscaling
-    SimulationSettings.Parameter_index = 7; % Choose parameters to be simulated: 1 = Seizure Parameter from Wendling 2002;
+    SimulationSettings.Parameter_index = 4; % Choose parameters to be simulated: 1 = Seizure Parameter from Wendling 2002;
     %  2 = Seizure Parameter from Wendling 2005;...
     %  3 = Altered excitability;
     %  4 = Parameters at midpoint of their range;
@@ -56,7 +56,7 @@ if simulate % Specify parameters for simulation purposes
     %  variations in simulation
     % 7 User defined For Jansen Simulation G parameter ignored
     if SimulationSettings.Parameter_index==7 % Specify synaptic gains for simulation
-        SimulationSettings.AV= [5];
+        SimulationSettings.AV= [8];
         SimulationSettings.BV= [15];
     end
     SimulationSettings.Input_mean_variation = 0; % If 0 mean stays constant for simulation,
@@ -86,7 +86,7 @@ Ds = 6; % Number of differential equations describing model, also the number of 
 
 Dp = 1; % Number of parameters to be estimated, also refered to as slow states
 
-Dk =1; %If set to 1 the mean of the stochastic input will be estimated % Note that if Input_mean_variation is not zero than Dk should be set to one to allow tracking of the input mean
+Dk =0; %If set to 1 the mean of the stochastic input will be estimated % Note that if Input_mean_variation is not zero than Dk should be set to one to allow tracking of the input mean
 
 Dy =1; % Number of observable outputs from the simulation
 
@@ -108,7 +108,7 @@ Reinitialise_parameters_attempts = 1; % Specify number of attempts for parameter
 % Uncertainty parameters
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-kappa =0.5; % Varibale used to define the relative contribution of the mean on the propogation of states, and adjustment of the variance of the sigma points drawn from the Gaussian distribution
+kappa =0; % Varibale used to define the relative contribution of the mean on the propogation of states, and adjustment of the variance of the sigma points drawn from the Gaussian distribution
 
 Variable_state_uncertainty = 0;%1e-3; % 1e-3 Uncertianty due to stochastic input
 
@@ -121,7 +121,7 @@ Base_input_uncertainty = 1e-12;%1e-3;%1e-2; % Inherent parameter uncertainty due
 
 Variable_input_uncertainty =0;%1e-3; % Uncertianty due varying input mean, Set to zero if the input mean is not varying
 
-Observation_uncertainty = 1e-3;%1e-2; %1e-1 Specify the uncertainty in observations
+Observation_uncertainty = 1e-6;%1e-2; %1e-1 Specify the uncertainty in observations
 
 % Adjust uncetainty on all parameters
 

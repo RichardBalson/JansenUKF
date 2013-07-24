@@ -44,13 +44,11 @@ User_defined_parameters;
 
 dt = 1/fs;
 
-q=0; % Intialise simulation number loop
-
 % Dynamic variables
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if filter_simulation
-        band_coeff = filtercoeff(lowcutoff,highcutoff,fs);
+    band_coeff = filtercoeff(lowcutoff,highcutoff,fs);
 end
 
 % Estimation Procedure Parameters
@@ -58,23 +56,23 @@ end
 
 Dx = Ds+Dp+Dk; % Number of dimensions of augmented state matrix, Note that estimated parameters and inputs are now considered to be 'slow states' in the estimation procedure
 
-    % Physiological range of Model gains
-    % ~~~~~~~~~~~~~~~~~
-    
-    Max_A =10;
-    Min_A =0;
-    Max_B =40;
-    Min_B =0;
-    
-    Max = [Max_A, Max_B];
-    Min = [Min_A, Min_B];
+% Physiological range of Model gains
+% ~~~~~~~~~~~~~~~~~
+
+Max_A =10;
+Min_A =0;
+Max_B =40;
+Min_B =0;
+
+Max = [Max_A, Max_B];
+Min = [Min_A, Min_B];
 
 for q = 1:Simulation_number
     
     if Random_number_generator(1)
-    rng(0);
-else
-    rng(cputime);
+        rng(0);
+    else
+        rng(cputime);
     end
     if simulate
         SimulationSettings.fs = fs;
@@ -108,7 +106,7 @@ else
     init =0;
     condition =1;
     while condition
-        init=init+1
+        init=init+1;
         conditionT = init<Reinitialise_parameters_attempts*(~Parameter_initialisation);
         Initialise_parameters;
         
@@ -214,10 +212,11 @@ else
         for k =1:Dk+Dp
             Pxx_Multi(:,k,q) = squeeze(Pxx(k,k,1:500:end));
         end
-    else 
+    else
         X_Multi =0;
         Pxx_Multi =0;
     end
+    PC = q/Simulation_number
 end % End Simulation_nuumber loop
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
