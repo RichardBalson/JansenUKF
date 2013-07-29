@@ -46,7 +46,7 @@ if simulate % Specify parameters for simulation purposes
     SimulationSettings.simulation_time =50; %Time for simulation in seconds 
     SimulationSettings.slope_time =1; % Specifies the time over which the model gain should be altered
     SimulationSettings.number_of_sigma_input = 1; % Used to determine standard deviation of input if  1: 68.27% of realisations within physiolgical range, 2: 95.45, 3: 99.73 4: 99.994
-    SimulationSettings.stochastic = 1; % Used to specifiy the stochastic adjustment on the input 1 is no adjustment. <1 downscalling, >1 upscaling
+    SimulationSettings.stochastic = 0.5; % Used to specifiy the stochastic adjustment on the input 1 is no adjustment. <1 downscalling, >1 upscaling
     SimulationSettings.Parameter_index = 4; % Choose parameters to be simulated: 1 = Seizure Parameter from Wendling 2002;
     %  2 = Seizure Parameter from Wendling 2005;...
     %  3 = Altered excitability;
