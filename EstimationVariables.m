@@ -89,7 +89,7 @@ end
 % Uncertianty for each fast state
 % mV
 
-State_uncertainty = ones(1,Ds).*Base_state_uncertainty; % Specify base
+State_uncertainty = Base_state_uncertainty./State_uncertainty_adjustment; % Specify base
 % state uncertainty for all states
 % State_uncertainty(1,[2 6]) = (ones(1,2)*stochastic*Variable_state_uncertainty+State_uncertainty(1,[2 6])); % Alter uncertainty of parameter affected directly by stochastic input
 

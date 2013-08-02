@@ -10,6 +10,8 @@
 
 filter_simulation =0; % Specify whether or not to filter simulated data
 
+Data_scale =1; % Scale simulation output to determine the effect of scaling on estimation out = outOrig/Data_scale
+
 if filter_simulation
     highcutoff = 2.5; % Specify highcutoff frequency for filter
     
@@ -109,6 +111,8 @@ Reinitialise_parameters_attempts = 1; % Specify number of attempts for parameter
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 kappa =0; % Varibale used to define the relative contribution of the mean on the propogation of states, and adjustment of the variance of the sigma points drawn from the Gaussian distribution
+
+State_uncertainty_adjustment = [1 1 1 1 5 5];% Base [1 1 1 1 1 1]Exponential decrease in uncertainty % All ones good for slow but steady convergence
 
 Variable_state_uncertainty = 0;%1e-3; % 1e-3 Uncertianty due to stochastic input
 

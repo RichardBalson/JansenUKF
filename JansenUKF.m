@@ -1,4 +1,4 @@
-function [X Pxx X_Multi Pxx_Multi]= JansenUKF
+function [X, Pxx, X_Multi, Pxx_Multi]= JansenUKF
 % script created by Richard Balson 21/02/2013
 
 % description
@@ -95,6 +95,7 @@ for q = 1:Simulation_number
     
     % Simulated signal data mV
     % ~~~~~~~~~~~~~~~~
+    output6 = output6/Data_scale;
     if filter_simulation
         output6 = filtfilt1(band_coeff,1,output6);
     end
