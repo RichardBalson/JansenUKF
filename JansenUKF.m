@@ -78,7 +78,7 @@ for q = 1:Simulation_number
         SimulationSettings.fs = fs;
         Jansen_Simulation(SimulationSettings); % Simulate states and output of the extended neural mass model
     end
-    load([SimulationSettings.name,'.mat'])% Load parameters from simulation
+    load([SimulationSettings.name,'.mat']);% Load parameters from simulation
     % output8 contains the simulated
     % model output; normalised_gaussian
     % input contains the input to the

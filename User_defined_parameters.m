@@ -112,12 +112,12 @@ Reinitialise_parameters_attempts = 1; % Specify number of attempts for parameter
 
 kappa =0; % Varibale used to define the relative contribution of the mean on the propogation of states, and adjustment of the variance of the sigma points drawn from the Gaussian distribution
 
-State_uncertainty_adjustment = [1 1 1 1 5 5];% Base [1 1 1 1 1 1]Exponential decrease in uncertainty % All ones good for slow but steady convergence
+State_uncertainty_adjustment = [1 1.2 5 1 2.5 15];% Base [1 1 1 1 1 1]Exponential decrease in uncertainty % All ones good for slow but steady convergence
 
 Variable_state_uncertainty = 0;%1e-3; % 1e-3 Uncertianty due to stochastic input
 
 Exc_parameter_uncertainty = 1e-2;%6e-5;%6e-5;%6e-5;
-Base_parameter_uncertainty = 1e-2;%6e-5;%1e-1;%1e-3;%1e-2; % Inherent parameter uncertainty due to model error
+Base_parameter_uncertainty = 8e-2;%6e-5;%1e-1;%1e-3;%1e-2; % Inherent parameter uncertainty due to model error
 
 Variable_parameter_uncertainty = 0;%1e-3;  % Uncertianty due parameters varying in time
 
