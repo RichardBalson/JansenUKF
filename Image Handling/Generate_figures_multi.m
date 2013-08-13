@@ -126,24 +126,24 @@ if Estimation_Error
     end
     PlotsPerFig =1;
     for k =1:Dp
-        input(:,:,k)= squeeze(PercErrEstimateMulti(k+Dk,:,:))';
+        input(:,:,k)= squeeze(PercErrEstimateMulti(k,:,:))';
         if plot_uncertaintyMulti
-            erfn(:,:,k) = bsxfun(@rdivide,squeeze(PercErrEstimateMulti(k+Dk,:,:))'-squeeze(sqrt(Pxx_Multi(:,k+Dk,:))*Error_multiplier)',MVI(index{2},k)'*100);
-            erfp(:,:,k) = bsxfun(@rdivide,squeeze(PercErrEstimateMulti(k+Dk,:,:))'+squeeze(sqrt(Pxx_Multi(:,k+Dk,:))*Error_multiplier)',MVI(index{2},k)'*100);
+            erfn(:,:,k) = bsxfun(@rdivide,squeeze(PercErrEstimateMulti(k+Dk,:,:))'-squeeze(sqrt(Pxx_Multi(:,k,:))*Error_multiplier)',MVI(index{2},k)'*100);
+            erfp(:,:,k) = bsxfun(@rdivide,squeeze(PercErrEstimateMulti(k+Dk,:,:))'+squeeze(sqrt(Pxx_Multi(:,k,:))*Error_multiplier)',MVI(index{2},k)'*100);
         else erfn =[]; erfp =[];
         end
     end
     if Dk
-        input(:,:,Dp+1) = squeeze(PercErrEstimateMulti(1,:,:))';
+        input(:,:,Dp+1) = squeeze(PercErrEstimateMulti(Dp+1,:,:))';
         if plot_uncertaintyMulti
-            erfn(:,:,Dp+1) = squeeze(PercErrEstimateMulti(1,:,:))'-squeeze(sqrt(Pxx_Multi(:,1,:))*Error_multiplier)'./Input_mean*100;
-            erfp(:,:,Dp+1) = squeeze(PercErrEstimateMulti(1,:,:))'+squeeze(sqrt(Pxx_Multi(:,1,:))*Error_multiplier)'./Input_mean*100;
+            erfn(:,:,Dp+1) = squeeze(PercErrEstimateMulti(Dp+1,:,:))'-squeeze(sqrt(Pxx_Multi(:,Dp+1,:))*Error_multiplier)'./Input_mean*100;
+            erfp(:,:,Dp+1) = squeeze(PercErrEstimateMulti(Dp+1,:,:))'+squeeze(sqrt(Pxx_Multi(:,Dp+1,:))*Error_multiplier)'./Input_mean*100;
         else erfn =[]; erfp =[];
         end
     end
     fig_name = 'Estimation Error';
     namesS = {'G_{p} (% Error)','G_{s} (% Error)','Input (% Error)'};
-    EstE = state_figure_multi_sim(fig_name,'State',fig_settings,t,input,{'Estimation Error'},erfn,erfp,RowP,ColP,namesS,PlotsPerFig);
+    EstEM = state_figure_multi_sim(fig_name,'State',fig_settings,t,input,{'Estimation Error'},erfn,erfp,RowP,ColP,namesS,PlotsPerFig);
     clear input erfn erfp namesS
     %     EstE=state_figure(fig_name,'Obs',fig_settings,t,PercErrEstimate,legen
     %     dT,[]);

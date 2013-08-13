@@ -14,10 +14,6 @@
 % Beginning of script
 % ~~~~~~~~~~~~~~~~~~~~~
 
-simulation_name = strcat(Estimation_type,'\',simulation_initial_name,'_P_',int2str(Dp+Dk),'PE_','Gauss','_N_',int2str(NoiseIn*1e3),'mV_');
-
-simulation_namez = strcat(simulation_name,'z_', int2str(zoom),'s_');
-
 % Determine whether figures need to be saved
 
 Image_handling_states_names = {'Vpo' 'Veo' 'Vsio' 'Vfio' 'Zpo' 'Zeo' 'Zsio' 'Zfio' 'Input' 'Excitation' 'Slow_Inhibition' 'Fast_Inhibition'...

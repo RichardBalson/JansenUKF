@@ -11,26 +11,35 @@ fig_handle = figure('name',name,...
     'PaperPositionMode','auto');
 
 for k = 1:size(input,3)
-    subplot(Rows,Cols,k),plot(time,input(1,:,k),color{1},'LineWidth',linewidth);
+    subplot(Rows,Cols,k),h=plot(time,input(1,:,k),color{1},'LineWidth',linewidth);
     hold on
     if size(input,1)>1
-    plot(time,input(2:end,:,k))
-    hold on
-    if ~isempty(Error)
-        plot(time,Error(1:end,:,k),ErrCol);
+        plot(time,input(2:end,:,k))
         hold on
-        plot(time,ErrorP(1:end,:,k),ErrCol);
-    end
+        if ~isempty(Error)
+            m(k)=plot(time,Error(1:end,:,k),ErrCol);
+            hold on
+            n(k)=plot(time,ErrorP(1:end,:,k),ErrCol);
+            
+        end
     end
     ylabel(yaxis{k},'fontsize',fig_settings.label_fontsize)
     set(gca,'fontsize',fig_settings.tick_fontsize)
     box off
     minc = min(min(input(:,:,k)));maxc = max(max(input(:,:,k)));
-    axis([0 max(time) (minc-abs(minc)*fig_settings.scale) (maxc+abs(maxc)*fig_settings.scale)]);
+    axis([min(time) max(time) (minc-abs(minc)*fig_settings.scale) (maxc+abs(maxc)*fig_settings.scale)]);
+    
 end
 xlabel('Time (s)','fontsize',fig_settings.label_fontsize)
 % title('Pyramidal Population Input','fontsize', label_fontsize)
 k = legend(legendT,'Location',legLoc,'Orientation',legOri);
+if ~isempty(Error)
+    for a =1:size(input,3)
+        uistack(n(a),'bottom');
+        uistack(m(a),'bottom');
+    end
+end
+uistack(h,'top');
 legend(k,'boxoff');
 set(k,'fontsize',fig_settings.legend_fontsize);
 
